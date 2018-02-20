@@ -15,6 +15,8 @@ class Board
   end
 
   def render(reveal = false)
+    (0..@grid_size - 1).map { |i| print " #{i} " }
+    puts ""
     @grid.map do |row|
       row.map do |tile|
         reveal ? tile.reveal : tile.render
@@ -37,7 +39,6 @@ class Board
   private
 
   def generate_board
-    def generate_board
     @grid = Array.new(@grid_size) do |row|
       Array.new(@grid_size) { |col| Tile.new(self, [row, col]) }
     end

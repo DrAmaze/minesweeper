@@ -11,6 +11,8 @@ class Game
   def initialize(size)
     layout = LAYOUTS[size]
     @board = Board.new(layout[:grid_size], layout[:num_bombs])
+
+    play
   end
 
   def play
@@ -51,6 +53,8 @@ class Game
       tile.visit
     when "s"
       save
+    else
+      puts "invalid entry"
     end
   end
 

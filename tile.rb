@@ -27,7 +27,7 @@ class Tile
   end
 
   def flagged?
-    @flagged?
+    @flagged
   end
 
   def touching_bombs
@@ -71,11 +71,11 @@ class Tile
 
   def render
     if flagged?
-      "F"
+      " F "
     elsif visited?
-      touching_bombs == 0 ? "_" : touching_bombs.to_s
+      touching_bombs == 0 ? " _ " : " " + touching_bombs.to_s + " "
     else
-      "*"
+      " * "
     end
   end
 
