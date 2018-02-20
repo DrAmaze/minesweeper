@@ -9,21 +9,56 @@ class Game
   }.freeze
 
   def initialize(size)
-
+    layout = LAYOUTS[size]
+    @board = Board.new(layout[:grid_size], layout[:num_bombs])
   end
 
   def play
+    until @board.won? || @board.lost?
+      puts @board.render
+
+      action, pos = get_move
+      perform_move(action, pos)
+    end
+
+    if @board.won?
+      puts "You are a champion!"
+    elsif @board.lost?
+      puts "_,.*'BABOOM'*.,_"
+      puts @board.reveal
+    end
   end
 
   private
 
   def get_move
+    puts "what action? type 'f' for flag, 'v' for visit, or 's' for save"
+    action = gets.chomp
+
+    puts "which tile? (i.e. 'row,column')"
+    row, col = gets.chomp.split(",")
+
+    [action, [row.to_i, col.to_i]]
   end
 
-  def perform_move
+  def perform_move(action, pos)
+    tile = @board[pos]
+
+    case action
+    when "f"
+      tile.toggle_flag
+    when "v"
+      tile.visit
+    when "s"
+      save
+    end
   end
 
   def save
+    puts "Enter filename to save:"
+    filename = gets.chomp
+
+    File.write(filename, YAML.dump(self))
   end
 end
 
