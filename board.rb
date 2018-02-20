@@ -31,7 +31,7 @@ class Board
   end
 
   def won?
-    @grid.flatten.all? { |tile| tile.bombed? != tile.visited }
+    @grid.flatten.all? { |tile| tile.bombed? != tile.visited? }
   end
 
   private
